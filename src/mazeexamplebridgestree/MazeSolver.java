@@ -95,7 +95,11 @@ public class MazeSolver
 
         if (maze.getFileName().equals(TEST_FILE_1) || maze.getFileName().equals(TEST_FILE_4)) {
             // Create the Bridges project.
-            Bridges bridges = new Bridges(0, "sdrozdek", "681289937662");
+            Bridges bridges = new Bridges(
+                    0,
+                    System.getenv("BRIDGES_USER_ID"),
+                    System.getenv("BRIDGES_API_KEY")
+            );
 
             // Set the project's title and description.
             bridges.setTitle("Maze Paths");
@@ -103,6 +107,7 @@ public class MazeSolver
             bridges.setDescription(description);
 
             // Visualize the tree
+
             bridges.setDataStructure(root);
             bridges.visualize();
             System.out.println(maze);
@@ -161,7 +166,11 @@ public class MazeSolver
         // If we found the exit, mark this position as being in the solution path.
         if (done)
         {
+            // Mark the path from start to end green, otherwise yellow
+            treeElement.setColor("green");
             maze.markPath(position);
+        } else {
+            treeElement.setColor("yellow");
         }
         
         return done;
@@ -190,4 +199,5 @@ public class MazeSolver
     
         return directionsToTry;
     }
+
 }
